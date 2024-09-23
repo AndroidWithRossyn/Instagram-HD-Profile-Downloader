@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginHorizontal="@dimen/horizontal_margin"
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:background="@drawable/background_card_edit"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -67,43 +67,81 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/_10sdp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_download"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fas_search_container">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
         <com.instagram.hdprofile.downloader.customview.CircleImageView
             android:id="@+id/ma_profile_img"
             android:layout_width="@dimen/_175sdp"
             android:layout_height="@dimen/_175sdp"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/border"
             android:padding="@dimen/_5sdp"
             android:src="@drawable/user_img_error" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_download"
-            style="@style/Widget.Material3.Button"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/horizontal_margin"
-            android:layout_marginBottom="@dimen/horizontal_margin"
-            android:paddingVertical="@dimen/button_padding_vertical"
-            android:text="@string/download"
-            android:textAllCaps="false"
-            android:textSize="@dimen/_11ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/background_card_edit"
+            android:minHeight="@dimen/_100sdp">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_marginVertical="@dimen/_2sdp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/api_result_json"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.core.widget.NestedScrollView>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/copy_result_json"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_10sdp"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
+                android:foreground="@drawable/ripple_oval"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_baseline_content_copy_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/md_theme_onSurface" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_download"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="@dimen/horizontal_margin"
+        android:layout_marginBottom="@dimen/horizontal_margin"
+        android:paddingVertical="@dimen/button_padding_vertical"
+        android:text="@string/download"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

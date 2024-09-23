@@ -73,7 +73,7 @@ object Utils {
      * @param url The URL from which the filename will be extracted.
      * @return The filename with an appropriate extension.
      */
-    fun getFilenameFromURL(url: String): String {
+    private fun getFilenameFromURL(url: String): String {
         return try {
             if (url.contains(".webp")) {
                 File(URI(url).path).name.replace(".webp", "") + ".jpg"
@@ -191,9 +191,6 @@ object Utils {
                 }
             }
         }
-        val newDisUrl = historyURL?.replace(
-            ApiHelper.BASE_URL, ""
-        )
 
         Log.d(TAG, "startDownload downloadPath: $downloadPath")
 

@@ -131,6 +131,8 @@ class HomeFragment : Fragment(), DefaultLifecycleObserver, View.OnClickListener,
 
             binding.searchNow.setOnClickListener(this)
             binding.btnDownload.setOnClickListener(this)
+            binding.apiResultJson.setOnClickListener(this)
+            binding.copyResultJson.setOnClickListener(this)
             binding.fasSearchView.setOnEditorActionListener(this)
 
 
@@ -187,6 +189,7 @@ class HomeFragment : Fragment(), DefaultLifecycleObserver, View.OnClickListener,
                                     val user = it.result.user
 
 //                                    Helper.URLCopy(Gson().toJson(user))
+                                    binding.apiResultJson.text = Gson().toJson(user)
 
                                     /*
                                     * If the user has uploaded their profile in high quality, only then will the HD quality image be saved in Instagram's database.
@@ -218,14 +221,18 @@ class HomeFragment : Fragment(), DefaultLifecycleObserver, View.OnClickListener,
 
                             } catch (e: Exception) {
                                 Log.d(TAG, "onViewCreated: ${e.message}")
+                                binding.apiResultJson.text = buildString {
+                                    append("onViewCreated: ")
+                                    append(e.message)
+                                }
                             }
                         } else {
-
+                            binding.apiResultJson.text = "Result is null"
                         }
                     }
 
                     is BaseViewModel.Result.Error -> {
-
+                        binding.apiResultJson.text = it.exception.message
                     }
                 }
 
@@ -278,6 +285,10 @@ class HomeFragment : Fragment(), DefaultLifecycleObserver, View.OnClickListener,
                     )
 
                 } else homeViewModel.showSnackBar("Download URL Not Available")
+            }
+
+            binding.copyResultJson -> {
+                Helper.URLCopy(binding.apiResultJson.text.toString())
             }
         }
 
@@ -350,6 +361,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
             } catch (ignored: Exception) {
                 setLoading(false)
                 Log.d(TAG, "callApiResult: Exception $ignored")
+                _profileOther.value = Result.Error(ignored)
             }
         }
         _alreadyLoaded = _pasteLoadUrl
@@ -359,9 +371,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         object : DisposableObserver<ResponseModel>() {
             override fun onNext(response: ResponseModel) {
                 try {
-
 //                    Helper.URLCopy(Gson().toJson(response))
-
                     if (response.graphql?.user != null) {
                         val user = response.graphql.user
 
@@ -385,11 +395,12 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
 
                     Log.d(TAG, "onNext: instaObserver")
                 } catch (e: Exception) {
-
+                    _profileOther.value = Result.Error(e)
                 }
             }
 
             override fun onError(e: Throwable) {
+                _profileOther.value = Result.Error(e)
                 Log.d(TAG, "onError: instaObserver ${e.message}")
                 if (_errorUrl != null) {
                     ApiHelper.callResult(
@@ -397,7 +408,6 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                     )
                     _errorUrl = null
                 } else {
-
                     if (SharedPref.cookies != null) {
                         showSnackBar(
                             getApplication<MyApplication>().applicationContext.resources.getString(

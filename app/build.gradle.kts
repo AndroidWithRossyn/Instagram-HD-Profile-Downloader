@@ -12,8 +12,8 @@ android {
         applicationId = "com.instagram.hdprofile.downloader"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"  //(Major.Minor.Patch)
+        versionCode = 2
+        versionName = "1.02.05a"  //(Major.Minor.Patch)
 //      versionName = "0.dev.testing"
         setProperty("archivesBaseName", "hdprofile-$versionName")
         vectorDrawables.useSupportLibrary = true

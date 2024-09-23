@@ -24,18 +24,7 @@ object ApiHelper {
 
     const val LOGIN_URL = "https://www.instagram.com/accounts/login/"
 
-    const val BASE_URL_MOB = "https://i.instagram.com/"
 
-    const val EXPLORE_URL = "https://www.instagram.com/explore/"
-
-    const val SCRIPT_PARAMETERS = "?__a=1&__d=dis"
-
-    const val REELS_TRAY = "https://i.instagram.com/api/v1/feed/reels_tray/"
-
-    const val FEED_REEL_MEDIA = "https://i.instagram.com/api/v1/feed/reels_media/"
-    const val GRAPHQL_QUERY = "https://i.instagram.com/graphql/query/"
-
-    const val POST_API = "https://i.instagram.com/api/v1/media/%s/info/"
 
     fun profileByUserId(userId: String): String {
         return "https://i.instagram.com/api/v1/users/$userId/info/"
@@ -47,22 +36,17 @@ object ApiHelper {
     }
 
 
-    fun searchQuery(text: String): String {
-        return "https://www.instagram.com/web/search/topsearch/?context=blended&query=$text&include_reel=false"
-    }
-
-
     fun getUrlWithoutParameters(url: String?): String {
         return try {
             val uri = URI(url)
-            val authority = uri.getAuthority()
+            val authority = uri.authority
             if ("instagram.com" == authority || "www.instagram.com" == authority) {
                 URI(
                     uri.scheme,
                     authority,
-                    uri.getPath(),
+                    uri.path,
                     null,  // Ignore the query part of the input url
-                    uri.getFragment()
+                    uri.fragment
                 ).toString()
             } else ""
         } catch (e: URISyntaxException) {
@@ -71,7 +55,7 @@ object ApiHelper {
     }
 
 
-    val headerMapDefault = HashMap<String, String>().apply {
+    private val headerMapDefault = HashMap<String, String>().apply {
         put("User-Agent", SharedPref.userAgent())
         put("X-IG-App-ID", SharedPref.xIgAppId!!)
         put("Accept", "*/*")

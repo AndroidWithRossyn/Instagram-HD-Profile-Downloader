@@ -52,35 +52,7 @@ object Helper {
         Toast.makeText(this, string, Toast.LENGTH_SHORT).show()
     }
 
-    /**
-     * Checks if a network connection is available.
-     *
-     * @return True if a network connection is available, false otherwise.
-     * @throws SecurityException If network permissions are missing.
-     *
-     * Note: Requires ACCESS_NETWORK_STATE and INTERNET permissions.
-     */
-    @SuppressLint("ObsoleteSdkInt")
-    fun isNetworkAvailable(): Boolean {
-        val connectivityManager = MyApplication.getAppContext()
-            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val network = connectivityManager.activeNetwork ?: return false
-            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
-            return when {
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
-                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_VPN) -> true
-                else -> false
-            }
-        } else {
-            @Suppress("DEPRECATION") val networkInfo =
-                connectivityManager.activeNetworkInfo ?: return false
-            @Suppress("DEPRECATION") return networkInfo.isConnected
-        }
-    }
+
 
     /**
      * This function searches for a key-value pair in the format `key=value` within the input string,
@@ -131,60 +103,10 @@ object Helper {
 
     }
 
-    /**
-     * Formats a timestamp into "dd/MM/yy h:mm a" format.
-     * @param t Timestamp in seconds.
-     * @return Formatted date string.
-     */
-    fun postTime(t: Long): String {
-        val date = Date(t * 1000)
-        val dateFormat = SimpleDateFormat("dd/MM/yy h:mm a", Locale.getDefault())
-        return dateFormat.format(date)
-    }
 
-    /**
-     * Formats a timestamp into "dd/MM/yy" format.
-     * @param t Timestamp in seconds.
-     * @return Formatted date string.
-     */
-    fun archiveTime(t: Long): String {
-        val date = Date(t * 1000)
-        val dateFormat = SimpleDateFormat("dd/MM/yy", Locale.getDefault())
-        return dateFormat.format(date)
-    }
 
-    /**
-     * Returns current time formatted as "dd/MM/yyyy h:mm:ss a".
-     * @return Current time as formatted string.
-     */
-    fun downloadTime(): String {
-        val currentTimeMillis = System.currentTimeMillis()
-        val currentDate = Date(currentTimeMillis)
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy h:mm:ss a", Locale.getDefault())
-        return dateFormat.format(currentDate)
-    }
 
-    /**
-     * Formats a millisecond timestamp into "dd/MM/yyyy h:mm:ss a".
-     * @param currentTimeMillis Timestamp in milliseconds.
-     * @return Formatted date string.
-     */
-    fun cacheTime(currentTimeMillis: Long): String {
-        val currentDate = Date(currentTimeMillis)
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy h:mm:ss a", Locale.getDefault())
-        return dateFormat.format(currentDate)
-    }
 
-    /**
-     * Formats a millisecond timestamp into "dd(HH:mm)" format.
-     * @param currentTimeMillis Timestamp in milliseconds.
-     * @return Formatted date string.
-     */
-    fun chartTime(currentTimeMillis: Long): String {
-        val currentDate = Date(currentTimeMillis)
-        val dateFormat = SimpleDateFormat("dd(HH:mm)", Locale.getDefault())
-        return dateFormat.format(currentDate)
-    }
 
     /**
      * Formats a count into a more readable string (e.g., 1000 -> 1K+).
@@ -207,79 +129,7 @@ object Helper {
         }
     }
 
-    /**
-     * Converts a number to its word representation.
-     * @param number The number to convert.
-     * @return The word representation of the number.
-     */
-    fun convertNumberToWords(number: Long): String {
-        if (number == 0L) return "zero"
 
-        val below20 = arrayOf(
-            "",
-            "one",
-            "two",
-            "three",
-            "four",
-            "five",
-            "six",
-            "seven",
-            "eight",
-            "nine",
-            "ten",
-            "eleven",
-            "twelve",
-            "thirteen",
-            "fourteen",
-            "fifteen",
-            "sixteen",
-            "seventeen",
-            "eighteen",
-            "nineteen"
-        )
-
-        val tens = arrayOf(
-            "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"
-        )
-
-        val thousands = arrayOf("", "thousand", "million", "billion")
-
-        fun convertChunk(num: Int): String {
-            var number = num
-            var result = ""
-
-            if (number >= 100) {
-                result += below20[number / 100] + " hundred "
-                number %= 100
-            }
-
-            if (number >= 20) {
-                result += tens[number / 10] + " "
-                number %= 10
-            }
-
-            if (number > 0) {
-                result += below20[number] + " "
-            }
-
-            return result.trim()
-        }
-
-        var result = ""
-        var chunkCount = 0
-        var n = number
-
-        while (n > 0) {
-            val chunk = (n % 1000).toInt()
-            if (chunk != 0) {
-                result = convertChunk(chunk) + " " + thousands[chunkCount] + " " + result
-            }
-            n /= 1000
-            chunkCount++
-        }
-
-        return result.trim()
-    }
 
     /**
      * Hides the soft keyboard.
@@ -292,18 +142,7 @@ object Helper {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    /**
-     * Returns the first five letters of a string.
-     * @param input The input string.
-     * @return The first five letters or the entire string if shorter.
-     */
-    fun getFirstFiveLetters(input: String?): String? {
-        return if (input == null || input.length < 5) {
-            input
-        } else {
-            input.substring(0, 5)
-        }
-    }
+
 
 
 }
