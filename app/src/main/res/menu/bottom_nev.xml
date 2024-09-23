@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_main_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:icon="@drawable/bottom_nav_home"
+        android:title="@string/home" />
+
+
+    <item
+        android:id="@+id/web_main_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:icon="@drawable/bottom_nav_web"
+        android:title="@string/web" />
+
+</menu>

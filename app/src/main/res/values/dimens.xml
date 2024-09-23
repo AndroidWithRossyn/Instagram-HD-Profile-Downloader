@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="horizontal_margin">16dp</dimen>
+
+    <dimen name="button_radius">@dimen/_20sdp</dimen>
+    <dimen name="button_padding_vertical">@dimen/_8sdp</dimen>
+
+    <dimen name="card_radius">@dimen/_5sdp</dimen>
+</resources>

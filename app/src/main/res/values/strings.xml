@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Insta-HD-Profile</string>
+
+    <string name="home">Home</string>
+    <string name="web">Web</string>
+
+    <string name="loading">loading..</string>
+    <string name="dialog_login_instagram">Login with Instagram!</string>
+
+    <string name="copied">TEXT COPIED</string>
+    <string name="username">Username</string>
+
+    <string name="enter_valid_url">Enter a Valid Url</string>
+    <string name="just_a_second">Just a Second…</string>
+    <string name="something_wrong">Something Wrong Session Expire login Again..</string>
+    <string name="contains_special">Username Contains special characters or space</string>
+
+    <string name="download">Download</string>
+</resources>
