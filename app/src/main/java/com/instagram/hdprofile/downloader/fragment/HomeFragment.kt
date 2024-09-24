@@ -205,6 +205,16 @@ class HomeFragment : Fragment(), DefaultLifecycleObserver, View.OnClickListener,
                                         user.profile_pic_url
                                     }
 
+                                    if (user.hd_profile_pic_url_info != null) {
+                                        binding.imageSize.text = buildString {
+                                            append("[")
+                                            append(user.hd_profile_pic_url_info.height)
+                                            append(" x ")
+                                            append(user.hd_profile_pic_url_info.width)
+                                            append("]")
+                                        }
+                                        binding.imageSize.visibility = View.VISIBLE
+                                    } else binding.imageSize.visibility = View.GONE
 
                                     this.username = user.username
 
@@ -448,8 +458,7 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     private val aboutUser: DisposableObserver<UserInfoForSingleStoryDownload> =
         object : DisposableObserver<UserInfoForSingleStoryDownload>() {
             override fun onNext(t: UserInfoForSingleStoryDownload) {
-                if (t.user != null)
-                    _profileOther.value = Result.Success(t)
+                if (t.user != null) _profileOther.value = Result.Success(t)
                 Log.d(TAG, "onNext: AboutUser")
             }
 

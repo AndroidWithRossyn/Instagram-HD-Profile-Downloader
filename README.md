@@ -10,6 +10,12 @@
 
 </div>
 
+<p align="center">
+    <a href="">
+      <img src="https://repository-images.githubusercontent.com/860918851/ac218030-1a52-427c-be6d-e3184dcd76f9" width="1000" />
+    </a>
+  </p>
+
 > Note: `-- Apache License 2.0` you can't Publish any Source code without permission.
 
 ### Features
@@ -19,6 +25,11 @@
 - **Private Profile Support**: Option to log in to download profile pictures from private accounts.
 - **HD Quality Detection**: Automatically detects if the profile picture is uploaded in HD quality and fetches the best available resolution.
 - **Simple User Interface**: Minimal design focused on usability and performance, making it easy for anyone to use.
+
+### Changelogs
+
+For details on the latest updates, features, and fixes, please visit the [CHANGELOG.md](CHANGELOG.md).
+
 
 ### How It Works
 
@@ -45,6 +56,10 @@ Support it by joining stargazers for this repository. ⭐
 
 Also, [follow me on GitHub](https://github.com/AndroidWithRossyn/) for my next creations! 🤩
 
+Feel free to contribute, raise issues, or suggest features via GitHub!
+
+---
+
 ### Disclaimer:
 - This Profile downloader is not associated with Instagram.
 - This application is NOT affiliated or endorsed by Instagram.
@@ -69,4 +84,4 @@ limitations under the License.
 ```
 ---
 
-Feel free to contribute, raise issues, or suggest features via GitHub!
+

@@ -85,6 +85,13 @@
             android:src="@drawable/user_img_error" />
 
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/image_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/_2sdp" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
