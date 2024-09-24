@@ -14,6 +14,8 @@ import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.instagram.hdprofile.downloader.MyApplication
 import com.instagram.hdprofile.downloader.R
+import org.json.JSONArray
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -142,7 +144,21 @@ object Helper {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-
+    fun formatJson(json: String): String {
+        return try {
+            if (json.trim().startsWith("{")) {
+                val jsonObject = JSONObject(json)
+                jsonObject.toString(4)
+            } else if (json.trim().startsWith("[")) {
+                val jsonArray = JSONArray(json)
+                jsonArray.toString(4)
+            } else {
+                json
+            }
+        } catch (e: Exception) {
+            json // Return the original string if it's not valid JSON
+        }
+    }
 
 
 }

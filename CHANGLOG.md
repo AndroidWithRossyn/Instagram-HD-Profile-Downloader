@@ -1,5 +1,21 @@
 # Changelog
 
+## `[1.02.10a] - 2024-09-24`
+
+### Added
+
+- Implemented `formatJson()` function to display JSON results in a properly formatted and readable
+  structure.
+- Confirmed the availability of JSON results before displaying them in the UI.
+
+### Fixed
+
+- JSON data now shows with proper line breaks and indentation in the TextView.
+
+### Improved
+
+- Enhanced error handling for better result validation.
+
 ## `[1.02.05a] - 2024-09-23`
 
 ### Added

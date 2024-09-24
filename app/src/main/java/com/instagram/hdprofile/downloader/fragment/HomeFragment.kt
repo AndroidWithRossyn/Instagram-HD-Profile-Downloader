@@ -36,6 +36,7 @@ import com.instagram.hdprofile.downloader.model.ResponseModel
 import com.instagram.hdprofile.downloader.model.UserInfoForSingleStoryDownload
 import com.instagram.hdprofile.downloader.utility.BaseViewModel
 import com.instagram.hdprofile.downloader.utility.Helper
+import com.instagram.hdprofile.downloader.utility.Helper.showToastShort
 import com.instagram.hdprofile.downloader.utility.SharedPref
 import com.instagram.hdprofile.downloader.utility.Utils
 import io.reactivex.rxjava3.observers.DisposableObserver
@@ -189,7 +190,8 @@ class HomeFragment : Fragment(), DefaultLifecycleObserver, View.OnClickListener,
                                     val user = it.result.user
 
 //                                    Helper.URLCopy(Gson().toJson(user))
-                                    binding.apiResultJson.text = Gson().toJson(user)
+                                    binding.apiResultJson.text =
+                                        Helper.formatJson(Gson().toJson(user))
 
                                     /*
                                     * If the user has uploaded their profile in high quality, only then will the HD quality image be saved in Instagram's database.
@@ -232,7 +234,7 @@ class HomeFragment : Fragment(), DefaultLifecycleObserver, View.OnClickListener,
                     }
 
                     is BaseViewModel.Result.Error -> {
-                        binding.apiResultJson.text = it.exception.message
+                        requireContext().showToastShort(it.exception.message.toString())
                     }
                 }
 
@@ -375,6 +377,9 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                     if (response.graphql?.user != null) {
                         val user = response.graphql.user
 
+                        val userInfoForSingleStoryDownload = UserInfoForSingleStoryDownload(user)
+                        _profileOther.value = Result.Success(userInfoForSingleStoryDownload)
+
                         callProfileUser(
                             ApiHelper.profileByUserId(
                                 user.id
@@ -382,11 +387,14 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
                         )
                     } else if (response.data != null) {
                         //  Log.d("TAG", "response.getGraphql().user != null");
-                        val (id) = response.data.user!!
+                        val user = response.data.user!!
+
+                        val userInfoForSingleStoryDownload = UserInfoForSingleStoryDownload(user)
+                        _profileOther.value = Result.Success(userInfoForSingleStoryDownload)
 
                         callProfileUser(
                             ApiHelper.profileByUserId(
-                                id
+                                user.id
                             ), SharedPref.orgCookies()!!
                         )
                     } else {
@@ -440,7 +448,8 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
     private val aboutUser: DisposableObserver<UserInfoForSingleStoryDownload> =
         object : DisposableObserver<UserInfoForSingleStoryDownload>() {
             override fun onNext(t: UserInfoForSingleStoryDownload) {
-                _profileOther.value = Result.Success(t)
+                if (t.user != null)
+                    _profileOther.value = Result.Success(t)
                 Log.d(TAG, "onNext: AboutUser")
             }
 
